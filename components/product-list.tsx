@@ -4,6 +4,7 @@ import { useProducts } from "@/hooks/use-products"
 import ProductCard from "./product-card"
 import { Skeleton } from "./ui/skeleton"
 import { useSearchParams } from "next/navigation"
+import { useMemo } from "react"
 
 export function ProductList() {
   const { data: products, isLoading, error } = useProducts()
@@ -13,27 +14,29 @@ export function ProductList() {
   const selectedCategories = searchParams.get("categories")?.split(",").filter(Boolean) || []
   const sort = searchParams.get("sort") || "none"
 
-  const filteredAndSortedProducts = products
-    ?.filter((product) => {
-      const matchesSearch = search
-        ? product.title.toLowerCase().includes(search) ||
-        product.description.toLowerCase().includes(search)
-        : true
+  const filteredAndSortedProducts = useMemo(() => {
+    return products
+      ?.filter((product) => {
+        const matchesSearch = search
+          ? product.title.toLowerCase().includes(search) ||
+          product.description.toLowerCase().includes(search)
+          : true
 
-      const matchesCategories =
-        selectedCategories.length === 0 || selectedCategories.includes(product.category)
+        const matchesCategories =
+          selectedCategories.length === 0 || selectedCategories.includes(product.category)
 
-      return matchesSearch && matchesCategories
-    })
-    .sort((a, b) => {
-      if (sort === "asc") {
-        return a.price - b.price
-      }
-      if (sort === "desc") {
-        return b.price - a.price
-      }
-      return 0
-    })
+        return matchesSearch && matchesCategories
+      })
+      .sort((a, b) => {
+        if (sort === "asc") {
+          return a.price - b.price
+        }
+        if (sort === "desc") {
+          return b.price - a.price
+        }
+        return 0
+      })
+  }, [products, search, selectedCategories, sort])
 
   if (isLoading) {
     return (
