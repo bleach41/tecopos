@@ -10,7 +10,7 @@ Aplicación de tienda online desarrollada con Next.js y React que permite a los 
 - **Búsqueda y filtros**: Sistema de búsqueda y filtrado por categorías y precios
 - **Diseño responsivo**: Interfaz adaptable a todos los dispositivos
 - **Animaciones de transición**: Experiencia de usuario mejorada con animaciones fluidas entre páginas
-- **Optimización SEO**: Metadatos dinámicos y OpenGraph para mejor indexación y compartición
+- **Optimización SEO**: Metadatos dinámicos .
 
 ## 🛠️ Tecnologías utilizadas
 
