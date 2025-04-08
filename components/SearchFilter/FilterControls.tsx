@@ -38,6 +38,7 @@ export function FilterControls({
                 onChange={setSelectedCategories}
                 placeholder="Seleccionar categorías"
                 className="min-w-[200px]"
+                aria-label="Seleccionar categorías"
             />
 
             <Select value={sort} onValueChange={setSort}>

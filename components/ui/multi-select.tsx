@@ -19,6 +19,7 @@ interface MultiSelectProps {
     onChange: (selected: string[]) => void
     placeholder?: string
     className?: string
+    "aria-label"?: string
 }
 
 export function MultiSelect({
@@ -27,6 +28,7 @@ export function MultiSelect({
     onChange,
     placeholder = "Seleccionar...",
     className,
+    "aria-label": ariaLabel = "Seleccionar opciones",
 }: MultiSelectProps) {
     const [open, setOpen] = React.useState(false)
 
@@ -45,6 +47,7 @@ export function MultiSelect({
                         "min-h-[2.5rem] h-auto py-2 relative w-full justify-between",
                         className
                     )}
+                    aria-label={ariaLabel}
                 >
                     <div className="flex flex-wrap gap-1 pr-6">
                         {selected.length === 0 && (
