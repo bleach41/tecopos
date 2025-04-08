@@ -1,11 +1,11 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter } from "next/font/google"
+import { Jost } from "next/font/google"
 import "@/styles/globals.css"
 import Navbar from "@/components/navbar"
 import { Providers } from "@/context/providers"
 
-const inter = Inter({ subsets: ["latin"] })
+const jost = Jost({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Tecopos - Prueba Tony",
@@ -19,7 +19,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
-      <body className={inter.className}>
+      <body className={jost.className}>
         <Providers>
           <Navbar />
           {children}

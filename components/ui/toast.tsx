@@ -29,9 +29,28 @@ const toastVariants = cva(
   {
     variants: {
       variant: {
-        default: "border bg-background text-foreground",
-        destructive:
-          "destructive group border-destructive bg-destructive text-destructive-foreground",
+        default: cn(
+          "[background:rgba(255,255,255,0.60) ] dark:[background:radial-gradient(100%_100%_at_50%_0%,rgba(255,255,255,0.04)_0%,rgba(255,255,255,0.00)_54.16%),rgba(248,248,248,0.02)]",
+          "shadow-[0px_4px_8px_0px_rgba(18,18,18,0.04),inset_2px_4px_16px_0px_rgba(248,248,248,0.24)]",
+          "dark:shadow-[2px_4px_16px_0px_rgba(248,248,248,0.06)_inset,0px_54px_32px_-16px_rgba(5,5,5,0.05),0px_24px_24px_-16px_rgba(5,5,5,0.09),0px_6px_12px_0px_rgba(5,5,5,0.10),0px_4px_4px_-4px_rgba(5,5,5,0.10),0px_0.5px_1.5px_-4px_rgba(5,5,5,0.50)]",
+          "[backdrop-filter:blur(50px)]",
+          "text-gray-800 dark:text-gray-200"
+
+        ),
+        success: cn(
+          "[background:linear-gradient(278deg,rgba(83,255,121,0.08)_0%,rgba(83,255,121,0.20)_100%),rgba(255,255,255,0.60)] dark:[background:linear-gradient(142deg,rgba(172,255,190,0.10)_0%,rgba(195,255,208,0.04)_80.39%)]",
+          "shadow-[0px_4px_8px_0px_rgba(18,18,18,0.04),inset_2px_4px_16px_0px_rgba(248,248,248,0.24)]",
+          "dark:shadow-[2px_4px_16px_0px_rgba(248,248,248,0.06)_inset,0px_54px_32px_-16px_rgba(5,5,5,0.05),0px_24px_24px_-16px_rgba(5,5,5,0.09),0px_6px_12px_0px_rgba(5,5,5,0.10),0px_4px_4px_-4px_rgba(5,5,5,0.10),0px_0.5px_1.5px_-4px_rgba(5,5,5,0.50)]",
+          "[backdrop-filter:blur(50px)]",
+          "[color:#25B445;]"
+        ),
+        destructive: cn(
+          "[background:linear-gradient(278deg,rgba(255,79,111,0.08)_0%,rgba(255,79,111,0.20)_100%),rgba(255,255,255,0.60)] dark:[background:linear-gradient(142deg,rgba(255,112,138,0.10)_0%,rgba(255,156,174,0.04)_80.39%)]",
+          "shadow-[0px_4px_8px_0px_rgba(18,18,18,0.04),inset_2px_4px_16px_0px_rgba(248,248,248,0.24)]",
+          "dark:shadow-[2px_4px_16px_0px_rgba(248,248,248,0.06)_inset,0px_54px_32px_-16px_rgba(5,5,5,0.05),0px_24px_24px_-16px_rgba(5,5,5,0.09),0px_6px_12px_0px_rgba(5,5,5,0.10),0px_4px_4px_-4px_rgba(5,5,5,0.10),0px_0.5px_1.5px_-4px_rgba(5,5,5,0.50)]",
+          "[backdrop-filter:blur(50px)]",
+          "[color:#FF4F6F;]"
+        ),
       },
     },
     defaultVariants: {
@@ -43,7 +62,7 @@ const toastVariants = cva(
 const Toast = React.forwardRef<
   React.ElementRef<typeof ToastPrimitives.Root>,
   React.ComponentPropsWithoutRef<typeof ToastPrimitives.Root> &
-    VariantProps<typeof toastVariants>
+  VariantProps<typeof toastVariants>
 >(({ className, variant, ...props }, ref) => {
   return (
     <ToastPrimitives.Root

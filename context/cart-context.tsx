@@ -4,6 +4,7 @@ import type React from "react"
 
 import { createContext, useContext, useState, useEffect } from "react"
 import type { Product } from "@/types/product"
+import { toast } from "@/hooks/use-toast"
 
 export interface CartItem extends Product {
   quantity: number
@@ -36,10 +37,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
       setCart([])
     } finally {
       setIsInitialized(true)
-      // Pequeño retraso para evitar parpadeo
       setTimeout(() => {
         setIsLoading(false)
-      })
+      }, 300)
     }
   }, [])
 
@@ -63,29 +63,76 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
           ...updatedCart[existingItemIndex],
           quantity: updatedCart[existingItemIndex].quantity + 1,
         }
+
+        toast({
+          title: "Cantidad actualizada",
+          description: `${product.title} (${updatedCart[existingItemIndex].quantity})`,
+          variant: "default",
+        })
+
         return updatedCart
       } else {
+        toast({
+          title: "Producto añadido",
+          description: product.title,
+          variant: "default",
+        })
+
         return [...currentCart, { ...product, quantity: 1 }]
       }
     })
   }
 
   const removeFromCart = (id: number) => {
-    setCart((currentCart) => currentCart.filter((item) => item.id !== id))
+    const productToRemove = cart.find(item => item.id === id)
+
+    setCart((currentCart) => {
+      const filteredCart = currentCart.filter((item) => item.id !== id)
+
+      if (productToRemove) {
+        toast({
+          title: "Producto eliminado",
+          description: productToRemove.title,
+          variant: "destructive",
+        })
+      }
+
+      return filteredCart
+    })
   }
 
   const increaseQuantity = (id: number) => {
-    setCart((currentCart) =>
-      currentCart.map((item) => (item.id === id ? { ...item, quantity: item.quantity + 1 } : item)),
-    )
+    setCart((currentCart) => {
+      const updatedCart = currentCart.map((item) => {
+        if (item.id === id) {
+          toast({
+            title: "Cantidad aumentada",
+            description: `${item.title} (${item.quantity + 1})`,
+            variant: "default",
+          })
+          return { ...item, quantity: item.quantity + 1 }
+        }
+        return item
+      })
+      return updatedCart
+    })
   }
 
   const decreaseQuantity = (id: number) => {
-    setCart((currentCart) =>
-      currentCart.map((item) =>
-        item.id === id && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item,
-      ),
-    )
+    setCart((currentCart) => {
+      const updatedCart = currentCart.map((item) => {
+        if (item.id === id && item.quantity > 1) {
+          toast({
+            title: "Cantidad disminuida",
+            description: `${item.title} (${item.quantity - 1})`,
+            variant: "default",
+          })
+          return { ...item, quantity: item.quantity - 1 }
+        }
+        return item
+      })
+      return updatedCart
+    })
   }
 
   const getTotal = () => {
@@ -93,6 +140,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   }
 
   const clearCart = () => {
+    toast({
+      title: "Carrito vaciado",
+      description: "Se han eliminado todos los productos",
+      variant: "destructive",
+    })
     setCart([])
   }
 
