@@ -17,7 +17,7 @@ export const CartItemMobile = ({
     removeFromCart,
 }: CartItemMobileProps) => {
     return (
-        <div className="p-4 border-b last:border-b-0">
+        <div className="p-4 border-b last:border-b-0 ">
             <div className="flex gap-4">
                 <div className="h-24 w-24 relative flex-shrink-0">
                     <Image
@@ -34,8 +34,8 @@ export const CartItemMobile = ({
                         </h3>
                     </Link>
                     <div className="text-sm text-gray-500 mb-3">${item.price.toFixed(2)}</div>
-                    <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-3">
+                    <div className="flex items-center justify-between max-sm:flex-col max-sm:space-x-0 max-sm:space-y-2">
+                        <div className="flex items-center space-x-2">
                             <button
                                 onClick={() => decreaseQuantity(item.id)}
                                 className="text-gray-500 hover:text-gray-700 disabled:opacity-50"
